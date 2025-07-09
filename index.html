@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freshpak - Tu Fuente de Productos Frescos</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind para usar la fuente Inter -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para el mapa */
+        .map-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Bordes redondeados */
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        /* Estilos para el carrusel */
+        .carousel-container {
+            position: absolute; /* Cambiado a absolute para que el texto quede encima */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out; /* Transición más suave */
+        }
+        .carousel-image.active {
+            opacity: 1;
+        }
+        /* Ocultar elementos de idioma por defecto */
+        [data-lang="zh"] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Sección del encabezado/hero con carrusel y botones de idioma -->
+    <header class="relative w-full h-screen flex items-center justify-center">
+        <div class="carousel-container">
+            <!-- Imágenes del carrusel -->
+            <img src="images/IMG-20250707-WA0027.jpg" alt="Carrusel Imagen 1" class="carousel-image active">
+            <img src="images/IMG-20250704-WA0056.jpg" alt="Carrusel Imagen 2" class="carousel-image">
+            <img src="images/IMG-20250704-WA0058.jpg" alt="Carrusel Imagen 3" class="carousel-image">
+        </div>
+
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="relative z-10 text-center text-white">
+            <h1 class="text-5xl font-bold mb-2">
+                <span data-lang="es">Venefrutas</span>
+                <span data-lang="zh">韦内弗鲁塔斯</span>
+            </h1>
+        </div>
+        <!-- Logo circular en la esquina superior izquierda -->
+        <div class="absolute top-4 left-20 z-20">
+            <img src="images/logo.png" alt="Venefrutas" class="rounded-full w-20 h-20">
+        </div>
+        <!-- Botones de traducción en la esquina superior derecha -->
+        <div class="absolute top-4 right-4 z-20 flex space-x-2">
+            <button class="bg-white text-green-600 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300" onclick="setLanguage('es')">
+                Español
+            </button>
+            <button class="bg-white text-green-600 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300" onclick="setLanguage('zh')">
+                中文
+            </button>
+        </div>
+    </header>
+
+    <!-- Sección de introducción y descripción -->
+    <section class="container mx-auto px-4 py-16 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="lg:w-1/2 text-center lg:text-left">
+            <h2 class="text-3xl font-bold mb-4">
+                <span data-lang="es">Nuestra Historia</span>
+                <span data-lang="zh">我们的历史</span>
+            </h2>
+            <p class="text-lg leading-relaxed text-gray-700">
+                <span data-lang="es">En Venefrutas, hemos dedicado un cuarto de siglo a la excelencia en la producción y distribución de frutas y verduras frescas. Nuestra pasión por la calidad y el compromiso con la sostenibilidad nos han convertido en líderes del sector. Nos enorgullece ofrecer productos que no solo son deliciosos, sino también cultivados con el máximo cuidado y respeto por el medio ambiente.</span>
+                <span data-lang="zh">在Venefrutas，我们致力于新鲜水果和蔬菜的生产和分销已有四分之一世纪。我们对品质的热情和对可持续发展的承诺使我们成为行业的领导者。我们很自豪能提供不仅美味，而且以最大程度的关怀和对环境的尊重种植的产品。</span>
+            </p>
+        </div>
+        <div class="lg:w-1/2 flex justify-center">
+            <img src="images/IMG-20250704-WA0059.jpg" alt="Arándanos frescos" class="rounded-xl shadow-lg max-w-full h-auto">
+        </div>
+    </section>
+
+    <!-- Sección de destacados/frutas -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div class="lg:w-1/2 flex justify-center">
+                <img src="images/IMG-20250704-WA0055.jpg" alt="Uvas frescas" class="rounded-xl shadow-lg max-w-full h-auto">
+            </div>
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span data-lang="es">Calidad Superior</span>
+                    <span data-lang="zh">卓越品质</span>
+                </h2>
+                <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                    <span data-lang="es">Nuestras manzanas son cuidadosamente seleccionadas para garantizar el sabor y la frescura en cada mordida.</span>
+                    <span data-lang="zh">我们精心挑选苹果，确保每一口都美味又新鲜。</span>
+                </p>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="p-3 bg-green-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="text-lg font-medium">
+                        <span data-lang="es">Cultivo Sostenible</span>
+                        <span data-lang="zh">可持续种植</span>
+                    </p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-green-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="text-lg font-medium">
+                        <span data-lang="es">Frescura Garantizada</span>
+                        <span data-lang="zh">新鲜保证</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Productos -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <span data-lang="es">Nuestros Productos</span>
+            <span data-lang="zh">我们的产品</span>
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6">
+            <!-- Producto 1 -->
+            <div class="bg-red-500 rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <img src="https://placehold.co/200x200/FF6347/FFFFFF?text=Manzanas" alt="Manzanas" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="font-semibold text-lg">
+                        <span data-lang="es">Manzanas</span>
+                        <span data-lang="zh">苹果</span>
+                    </h3>
+                </div>
+            </div>
+            <!-- Producto 2 -->
+            <div class="bg-green-500 rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <img src="https://placehold.co/200x200/90EE90/FFFFFF?text=Peras" alt="Peras" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="font-semibold text-lg">
+                        <span data-lang="es">Peras</span>
+                        <span data-lang="zh">梨</span>
+                    </h3>
+                </div>
+            </div>
+            <!-- Producto 3 -->
+            <div class="bg-red-100 rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <img src="https://placehold.co/200x200/FFD700/FFFFFF?text=Duraznos" alt="Duraznos" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="font-semibold text-lg">
+                        <span data-lang="es">Duraznos</span>
+                        <span data-lang="zh">桃子</span>
+                    </h3>
+                </div>
+            </div>
+            <!-- Producto 4 -->
+            <div class="bg-red-900 text-white rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <img src="https://placehold.co/200x200/8B0000/FFFFFF?text=Cerezas" alt="Cerezas" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="font-semibold text-lg">
+                        <span data-lang="es">Cerezas</span>
+                        <span data-lang="zh">樱桃</span>
+                    </h3>
+                </div>
+            </div>
+            <!-- Producto 8 -->
+            <div class="bg-red-600 text-white rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <img src="https://placehold.co/200x200/FFC0CB/FFFFFF?text=Fresas" alt="Fresas" class="w-full h-32 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="font-semibold text-lg">
+                        <span data-lang="es">Fresas</span>
+                        <span data-lang="zh">草莓</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Mercados (con iconos de mapa) -->
+    <section class="bg-gray-800 text-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                <span data-lang="es">Nuestros Mercados</span>
+                <span data-lang="zh">我们的市场</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Región 1: América del Norte -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">América del Norte</span>
+                        <span data-lang="zh">北美洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">Canadá, Estados Unidos, México</span>
+                        <span data-lang="zh">加拿大, 美国, 墨西哥</span>
+                    </p>
+                </div>
+                <!-- Región 2: Centroamérica -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">Centroamérica</span>
+                        <span data-lang="zh">中美洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">Guatemala, Honduras, Costa Rica, Panamá</span>
+                        <span data-lang="zh">危地马拉, 洪都拉斯, 哥斯达黎加, 巴拿马</span>
+                    </p>
+                </div>
+                <!-- Región 3: América del Sur -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">América del Sur</span>
+                        <span data-lang="zh">南美洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">Brasil, Argentina, Chile, Perú</span>
+                        <span data-lang="zh">巴西, 阿根廷, 智利, 秘鲁</span>
+                    </p>
+                </div>
+                <!-- Región 4: Europa -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">Europa</span>
+                        <span data-lang="zh">欧洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">España, Francia, Alemania, Reino Unido</span>
+                        <span data-lang="zh">西班牙, 法国, 德国, 英国</span>
+                    </p>
+                </div>
+                <!-- Región 5: Asia -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">Asia</span>
+                        <span data-lang="zh">亚洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">Japón, China, India, Corea del Sur</span>
+                        <span data-lang="zh">日本, 中国, 印度, 韩国</span>
+                    </p>
+                </div>
+                <!-- Región 6: África -->
+                <div class="flex flex-col items-center text-center p-6 bg-gray-700 rounded-xl shadow-lg">
+                    <svg class="w-24 h-24 mb-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-2">
+                        <span data-lang="es">África</span>
+                        <span data-lang="zh">非洲</span>
+                    </h3>
+                    <p class="text-gray-300">
+                        <span data-lang="es">Sudáfrica, Egipto, Marruecos, Kenia</span>
+                        <span data-lang="zh">南非, 埃及, 摩洛哥, 肯尼亚</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios/Características -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <span data-lang="es">Nuestros Servicios</span>
+            <span data-lang="zh">我们的服务</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-6 bg-white rounded-xl shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <div class="p-4 bg-green-100 rounded-full inline-block mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-semibold mb-2">
+                    <span data-lang="es">Control de Calidad</span>
+                    <span data-lang="zh">质量控制</span>
+                </h3>
+                <p class="text-gray-700">
+                    <span data-lang="es">Rigurosos estándares para asegurar la máxima frescura.</span>
+                    <span data-lang="zh">严格标准确保最大新鲜度。</span>
+                </p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <div class="p-4 bg-green-100 rounded-full inline-block mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-semibold mb-2">
+                    <span data-lang="es">Logística Eficiente</span>
+                    <span data-lang="zh">高效物流</span>
+                </h3>
+                <p class="text-gray-700">
+                    <span data-lang="es">Entrega rápida y segura a nivel global.</span>
+                    <span data-lang="zh">全球快速安全交付。</span>
+                </p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                <div class="p-4 bg-green-100 rounded-full inline-block mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a4 4 0 014-4h12.356M20 12V6a2 2 0 00-2-2H6a2 2 0 00-2 2v6m2-2h2m4 0h2m4 0h2" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-semibold mb-2">
+                    <span data-lang="es">Soporte al Cliente</span>
+                    <span data-lang="zh">客户支持</span>
+                </h3>
+                <p class="text-gray-700">
+                    <span data-lang="es">Atención personalizada para todas tus necesidades.</span>
+                    <span data-lang="zh">满足您所有需求的个性化服务。</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto con Formulario -->
+    <section class="bg-green-600 text-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                <span data-lang="es">Contáctanos</span>
+                <span data-lang="zh">联系我们</span>
+            </h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg text-gray-800">
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-lg font-medium text-gray-700">
+                            <span data-lang="es">Nombre Completo</span>
+                            <span data-lang="zh">全名</span>
+                        </label>
+                        <input type="text" name="name" id="name" autocomplete="name" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-lg">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-lg font-medium text-gray-700">
+                            <span data-lang="es">Correo Electrónico</span>
+                            <span data-lang="zh">电子邮件</span>
+                        </label>
+                        <input type="email" name="email" id="email" autocomplete="email" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-lg">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-lg font-medium text-gray-700">
+                            <span data-lang="es">Asunto</span>
+                            <span data-lang="zh">主题</span>
+                        </label>
+                        <input type="text" name="subject" id="subject"
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-lg">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-lg font-medium text-gray-700">
+                            <span data-lang="es">Tu Mensaje</span>
+                            <span data-lang="zh">您的留言</span>
+                        </label>
+                        <textarea id="message" name="message" rows="5" required
+                                  class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-lg"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition duration-300">
+                            <span data-lang="es">Enviar Mensaje</span>
+                            <span data-lang="zh">发送消息</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
+        <p>
+            <span data-lang="es">&copy; 2025 Venefrutas. Todos los derechos reservados.</span>
+            <span data-lang="zh">&copy; 2025 Venefrutas. 版权所有。</span>
+        </p>
+    </footer>
+
+    <script>
+        // Lógica del carrusel de imágenes
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-image');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+            });
+            slides[index].classList.add('active');
+        }
+
+        // Función para avanzar el carrusel automáticamente
+        function autoAdvanceCarousel() {
+            slideIndex++;
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            showSlide(slideIndex);
+        }
+
+        // Lógica para los botones de traducción
+        function setLanguage(lang) {
+            // Establece el atributo lang en el elemento html
+            document.documentElement.lang = lang;
+
+            // Oculta todos los elementos de idioma
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                element.style.display = 'none';
+            });
+
+            // Muestra solo los elementos del idioma seleccionado
+            document.querySelectorAll('[data-lang="' + lang + '"]').forEach(element => {
+                element.style.display = 'block'; // Usar '' para restaurar el display por defecto (inline, block, etc.)
+            });
+        }
+
+        // Inicializar el carrusel y el idioma al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(slideIndex);
+            // Iniciar el auto-avance del carrusel cada 5 segundos (5000 ms)
+            setInterval(autoAdvanceCarousel, 5000);
+
+            // Establecer el idioma inicial a español
+            setLanguage('es');
+        });
+    </script>
+</body>
+</html>
